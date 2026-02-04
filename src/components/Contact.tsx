@@ -1,13 +1,14 @@
-import { motion, useInView } from 'framer-motion';
+import { motion, useInView, useScroll, useTransform } from 'framer-motion';
 import { useRef, useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { useToast } from '@/hooks/use-toast';
-import { MapPin, Phone, Mail, Send, ArrowRight } from 'lucide-react';
+import { MapPin, Phone, Mail, Send } from 'lucide-react';
 
 const Contact = () => {
   const ref = useRef(null);
+  const containerRef = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
   const { toast } = useToast();
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -17,6 +18,14 @@ const Contact = () => {
     email: '',
     message: ''
   });
+  const [focusedField, setFocusedField] = useState<string | null>(null);
+
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start end", "end start"]
+  });
+
+  const y = useTransform(scrollYProgress, [0, 1], [100, -100]);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData({
@@ -29,7 +38,6 @@ const Contact = () => {
     e.preventDefault();
     setIsSubmitting(true);
     
-    // Simulate API call
     await new Promise(resolve => setTimeout(resolve, 1500));
     
     console.log('Form submitted:', formData);
@@ -60,7 +68,7 @@ const Contact = () => {
   ];
 
   return (
-    <section id="contact" className="relative py-32 overflow-hidden" ref={ref}>
+    <section id="contact" ref={containerRef} className="relative py-32 overflow-hidden">
       {/* Background */}
       <div className="absolute inset-0 bg-gradient-to-b from-muted/30 to-background" />
       
@@ -73,7 +81,13 @@ const Contact = () => {
         />
       </div>
 
-      <div className="container mx-auto px-6 relative z-10">
+      {/* Floating elements */}
+      <motion.div
+        style={{ y }}
+        className="absolute top-20 right-20 w-72 h-72 bg-mp-sky/5 rounded-full blur-3xl"
+      />
+
+      <div className="container mx-auto px-6 relative z-10" ref={ref}>
         {/* Section Header */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -84,41 +98,56 @@ const Contact = () => {
           <motion.span 
             initial={{ opacity: 0, scale: 0.9 }}
             animate={isInView ? { opacity: 1, scale: 1 } : {}}
+            transition={{ duration: 0.5, delay: 0.1 }}
             className="inline-block px-4 py-2 bg-mp-sky/10 text-mp-sky rounded-full text-sm font-semibold mb-6"
           >
             Get In Touch
           </motion.span>
-          <h2 className="section-title text-foreground mb-6">
+          <motion.h2 
+            initial={{ opacity: 0, y: 20 }}
+            animate={isInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            className="section-title text-foreground mb-6"
+          >
             Let's Build Something Together
-          </h2>
-          <div className="w-24 h-1.5 bg-gradient-to-r from-mp-sky to-accent mx-auto rounded-full mb-8" />
-          <p className="section-subtitle">
+          </motion.h2>
+          <motion.div 
+            initial={{ width: 0 }}
+            animate={isInView ? { width: 96 } : {}}
+            transition={{ duration: 0.8, delay: 0.4 }}
+            className="h-1.5 bg-gradient-to-r from-mp-sky to-accent mx-auto rounded-full mb-8"
+          />
+          <motion.p 
+            initial={{ opacity: 0 }}
+            animate={isInView ? { opacity: 1 } : {}}
+            transition={{ duration: 0.6, delay: 0.5 }}
+            className="section-subtitle"
+          >
             Ready to start your dream project? Get in touch with us today for a free consultation
-          </p>
+          </motion.p>
         </motion.div>
 
         <div className="grid lg:grid-cols-5 gap-12">
           {/* Contact Information */}
-          <motion.div
-            initial={{ opacity: 0, x: -50 }}
-            animate={isInView ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className="lg:col-span-2 space-y-8"
-          >
+          <div className="lg:col-span-2 space-y-6">
             {/* Info Cards */}
             {contactInfo.map((info, index) => (
               <motion.div
                 key={index}
-                initial={{ opacity: 0, y: 30 }}
-                animate={isInView ? { opacity: 1, y: 0 } : {}}
+                initial={{ opacity: 0, x: -30 }}
+                animate={isInView ? { opacity: 1, x: 0 } : {}}
                 transition={{ duration: 0.6, delay: 0.3 + index * 0.1 }}
                 whileHover={{ x: 10, scale: 1.02 }}
-                className="group flex items-start gap-5 p-6 bg-card rounded-2xl border border-border hover:border-mp-sky/50 transition-all duration-300 cursor-pointer"
+                className="group flex items-start gap-5 p-6 bg-card rounded-2xl border border-border hover:border-mp-sky/50 transition-all duration-300 cursor-pointer relative overflow-hidden"
               >
-                <div className="w-14 h-14 bg-gradient-to-br from-mp-sky to-accent rounded-xl flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform duration-300">
+                <motion.div 
+                  className="w-14 h-14 bg-gradient-to-br from-mp-sky to-accent rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg relative z-10"
+                  whileHover={{ scale: 1.1, rotate: 10 }}
+                  transition={{ duration: 0.3 }}
+                >
                   <info.icon className="w-6 h-6 text-white" />
-                </div>
-                <div>
+                </motion.div>
+                <div className="relative z-10">
                   <h4 className="font-bold text-foreground mb-2 group-hover:text-mp-sky transition-colors">
                     {info.title}
                   </h4>
@@ -134,23 +163,26 @@ const Contact = () => {
               initial={{ opacity: 0, y: 30 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.6, delay: 0.6 }}
-              className="p-6 bg-gradient-to-br from-mp-navy to-mp-dark rounded-2xl"
+              className="p-6 bg-gradient-to-br from-mp-navy to-mp-dark rounded-2xl relative overflow-hidden"
             >
-              <h4 className="font-bold text-white mb-4">Follow Us</h4>
-              <div className="flex gap-3">
+              <h4 className="font-bold text-white mb-4 relative z-10">Follow Us</h4>
+              <div className="flex gap-3 relative z-10">
                 {['Facebook', 'Instagram', 'LinkedIn', 'Twitter'].map((social, index) => (
                   <motion.button
                     key={social}
-                    whileHover={{ scale: 1.1, y: -5 }}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={isInView ? { opacity: 1, y: 0 } : {}}
+                    transition={{ delay: 0.7 + index * 0.1 }}
+                    whileHover={{ scale: 1.15, y: -5, rotate: 5 }}
                     whileTap={{ scale: 0.95 }}
-                    className="w-12 h-12 bg-white/10 hover:bg-mp-sky text-white rounded-xl flex items-center justify-center transition-colors duration-300"
+                    className="w-12 h-12 bg-white/10 hover:bg-mp-sky text-white rounded-xl flex items-center justify-center transition-colors duration-300 backdrop-blur-sm"
                   >
                     {social[0]}
                   </motion.button>
                 ))}
               </div>
             </motion.div>
-          </motion.div>
+          </div>
 
           {/* Contact Form */}
           <motion.div
@@ -159,19 +191,25 @@ const Contact = () => {
             transition={{ duration: 0.8, delay: 0.4 }}
             className="lg:col-span-3"
           >
-            <div className="bg-card p-8 md:p-10 rounded-3xl shadow-xl border border-border">
-              <h3 className="text-2xl font-display font-bold text-foreground mb-2">
+            <motion.div 
+              className="bg-card p-8 md:p-10 rounded-3xl shadow-xl border border-border relative overflow-hidden"
+              whileHover={{ boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.1)" }}
+            >
+              {/* Background decoration */}
+              <div className="absolute top-0 right-0 w-64 h-64 bg-mp-sky/5 rounded-full blur-3xl" />
+              
+              <h3 className="text-2xl font-display font-bold text-foreground mb-2 relative z-10">
                 Send us a Message
               </h3>
-              <p className="text-muted-foreground mb-8">
+              <p className="text-muted-foreground mb-8 relative z-10">
                 Fill out the form below and we'll get back to you within 24 hours.
               </p>
               
-              <form onSubmit={handleSubmit} className="space-y-6">
+              <form onSubmit={handleSubmit} className="space-y-6 relative z-10">
                 <div className="grid md:grid-cols-2 gap-6">
                   <motion.div 
-                    whileFocus={{ scale: 1.02 }}
                     className="space-y-2"
+                    animate={focusedField === 'name' ? { scale: 1.02 } : { scale: 1 }}
                   >
                     <label htmlFor="name" className="block text-sm font-semibold text-foreground">
                       Full Name
@@ -182,13 +220,18 @@ const Contact = () => {
                       name="name"
                       value={formData.name}
                       onChange={handleInputChange}
+                      onFocus={() => setFocusedField('name')}
+                      onBlur={() => setFocusedField(null)}
                       required
-                      className="w-full h-12 bg-background border-border focus:border-mp-sky focus:ring-mp-sky/20 rounded-xl transition-all"
+                      className="w-full h-12 bg-background border-border focus:border-mp-sky focus:ring-mp-sky/20 rounded-xl transition-all duration-300"
                       placeholder="John Doe"
                     />
                   </motion.div>
 
-                  <div className="space-y-2">
+                  <motion.div 
+                    className="space-y-2"
+                    animate={focusedField === 'phone' ? { scale: 1.02 } : { scale: 1 }}
+                  >
                     <label htmlFor="phone" className="block text-sm font-semibold text-foreground">
                       Phone Number
                     </label>
@@ -198,14 +241,19 @@ const Contact = () => {
                       name="phone"
                       value={formData.phone}
                       onChange={handleInputChange}
+                      onFocus={() => setFocusedField('phone')}
+                      onBlur={() => setFocusedField(null)}
                       required
-                      className="w-full h-12 bg-background border-border focus:border-mp-sky focus:ring-mp-sky/20 rounded-xl transition-all"
+                      className="w-full h-12 bg-background border-border focus:border-mp-sky focus:ring-mp-sky/20 rounded-xl transition-all duration-300"
                       placeholder="+91 98765 43210"
                     />
-                  </div>
+                  </motion.div>
                 </div>
 
-                <div className="space-y-2">
+                <motion.div 
+                  className="space-y-2"
+                  animate={focusedField === 'email' ? { scale: 1.02 } : { scale: 1 }}
+                >
                   <label htmlFor="email" className="block text-sm font-semibold text-foreground">
                     Email Address
                   </label>
@@ -215,13 +263,18 @@ const Contact = () => {
                     name="email"
                     value={formData.email}
                     onChange={handleInputChange}
+                    onFocus={() => setFocusedField('email')}
+                    onBlur={() => setFocusedField(null)}
                     required
-                    className="w-full h-12 bg-background border-border focus:border-mp-sky focus:ring-mp-sky/20 rounded-xl transition-all"
+                    className="w-full h-12 bg-background border-border focus:border-mp-sky focus:ring-mp-sky/20 rounded-xl transition-all duration-300"
                     placeholder="john@example.com"
                   />
-                </div>
+                </motion.div>
 
-                <div className="space-y-2">
+                <motion.div 
+                  className="space-y-2"
+                  animate={focusedField === 'message' ? { scale: 1.02 } : { scale: 1 }}
+                >
                   <label htmlFor="message" className="block text-sm font-semibold text-foreground">
                     Project Details
                   </label>
@@ -230,39 +283,54 @@ const Contact = () => {
                     name="message"
                     value={formData.message}
                     onChange={handleInputChange}
+                    onFocus={() => setFocusedField('message')}
+                    onBlur={() => setFocusedField(null)}
                     required
                     rows={5}
-                    className="w-full bg-background border-border focus:border-mp-sky focus:ring-mp-sky/20 rounded-xl transition-all resize-none"
+                    className="w-full bg-background border-border focus:border-mp-sky focus:ring-mp-sky/20 rounded-xl transition-all duration-300 resize-none"
                     placeholder="Tell us about your dream project..."
                   />
-                </div>
+                </motion.div>
 
-                <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
+                <motion.div 
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                >
                   <Button 
                     type="submit"
                     disabled={isSubmitting}
-                    className="w-full bg-gradient-to-r from-mp-navy to-mp-dark hover:from-mp-sky hover:to-accent text-white py-6 rounded-xl text-lg font-semibold shadow-lg hover:shadow-xl transition-all duration-300 group"
+                    className="w-full relative overflow-hidden bg-gradient-to-r from-mp-navy to-mp-dark hover:from-mp-sky hover:to-accent text-white py-6 rounded-xl text-lg font-semibold shadow-lg transition-all duration-300 group"
                   >
-                    {isSubmitting ? (
-                      <span className="flex items-center gap-2">
+                    <span className="relative z-10">
+                      {isSubmitting ? (
                         <motion.span 
-                          animate={{ rotate: 360 }}
-                          transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+                          className="flex items-center justify-center gap-2"
+                          animate={{ opacity: [1, 0.5, 1] }}
+                          transition={{ duration: 1, repeat: Infinity }}
                         >
-                          ⏳
+                          <motion.div
+                            animate={{ rotate: 360 }}
+                            transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+                            className="w-5 h-5 border-2 border-white border-t-transparent rounded-full"
+                          />
+                          Sending...
                         </motion.span>
-                        Sending...
-                      </span>
-                    ) : (
-                      <span className="flex items-center justify-center gap-2">
-                        Send Message
-                        <Send className="w-5 h-5 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
-                      </span>
-                    )}
+                      ) : (
+                        <span className="flex items-center justify-center gap-2">
+                          Send Message
+                          <motion.span
+                            animate={{ x: [0, 5, 0], y: [0, -3, 0] }}
+                            transition={{ duration: 1.5, repeat: Infinity }}
+                          >
+                            <Send className="w-5 h-5" />
+                          </motion.span>
+                        </span>
+                      )}
+                    </span>
                   </Button>
                 </motion.div>
               </form>
-            </div>
+            </motion.div>
           </motion.div>
         </div>
 
@@ -271,7 +339,8 @@ const Contact = () => {
           initial={{ opacity: 0, y: 50 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8, delay: 0.6 }}
-          className="mt-20 rounded-3xl overflow-hidden shadow-2xl h-80"
+          whileHover={{ scale: 1.01 }}
+          className="mt-20 rounded-3xl overflow-hidden shadow-2xl h-80 relative group"
         >
           <iframe
             src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d122251.56959958428!2d80.35916684335937!3d16.30675!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a4a754a5b7d0b67%3A0x3e26e1a3e6e0f0c8!2sGuntur%2C%20Andhra%20Pradesh!5e0!3m2!1sen!2sin!4v1635000000000!5m2!1sen!2sin"
@@ -281,7 +350,7 @@ const Contact = () => {
             allowFullScreen
             loading="lazy"
             referrerPolicy="no-referrer-when-downgrade"
-            className="grayscale hover:grayscale-0 transition-all duration-500"
+            className="grayscale group-hover:grayscale-0 transition-all duration-700"
           />
         </motion.div>
       </div>

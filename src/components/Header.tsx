@@ -11,8 +11,6 @@ const Header = () => {
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50);
-
-      // Update active section based on scroll position
       const sections = ['home', 'about', 'services', 'portfolio', 'contact'];
       for (const section of sections.reverse()) {
         const element = document.getElementById(section);
@@ -22,7 +20,6 @@ const Header = () => {
         }
       }
     };
-
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
@@ -50,23 +47,26 @@ const Header = () => {
       transition={{ duration: 0.6 }}
       className={`fixed w-full top-0 z-50 transition-all duration-500 ${
         isScrolled 
-          ? 'bg-white/90 backdrop-blur-lg shadow-lg border-b border-border' 
+          ? 'bg-white/90 backdrop-blur-xl shadow-lg border-b border-border' 
           : 'bg-transparent'
       }`}
     >
       <div className="container mx-auto px-6">
         <div className="flex items-center justify-between h-20">
-          {/* Logo */}
           <motion.div 
             whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
             className="flex items-center gap-3 cursor-pointer"
             onClick={() => scrollToSection('home')}
           >
-            <div className={`w-12 h-12 rounded-xl flex items-center justify-center transition-all duration-300 ${
-              isScrolled ? 'bg-mp-navy' : 'bg-white/10 backdrop-blur-sm border border-white/20'
-            }`}>
+            <motion.div 
+              className={`w-12 h-12 rounded-xl flex items-center justify-center transition-all duration-300 ${
+                isScrolled ? 'bg-mp-navy' : 'bg-white/10 backdrop-blur-sm border border-white/20'
+              }`}
+              whileHover={{ rotate: 5 }}
+            >
               <span className="text-white font-bold text-xl">MP</span>
-            </div>
+            </motion.div>
             <div>
               <h1 className={`text-xl font-display font-bold transition-colors duration-300 ${
                 isScrolled ? 'text-mp-navy' : 'text-white'
@@ -81,31 +81,30 @@ const Header = () => {
             </div>
           </motion.div>
 
-          {/* Desktop Navigation */}
           <nav className="hidden lg:flex items-center gap-1">
             {navItems.map((item) => (
               <motion.button
                 key={item.id}
                 onClick={() => scrollToSection(item.id)}
-                whileHover={{ y: -2 }}
                 className={`relative px-5 py-2 font-medium transition-colors duration-300 ${
                   isScrolled 
                     ? activeSection === item.id ? 'text-mp-sky' : 'text-foreground hover:text-mp-sky'
                     : activeSection === item.id ? 'text-mp-sky' : 'text-white/90 hover:text-white'
                 }`}
+                whileHover={{ y: -2 }}
+                whileTap={{ scale: 0.95 }}
               >
-                {item.label}
+                <span className="relative z-10">{item.label}</span>
                 {activeSection === item.id && (
                   <motion.div
                     layoutId="activeSection"
-                    className="absolute bottom-0 left-0 right-0 h-0.5 bg-mp-sky rounded-full"
+                    className="absolute bottom-0 left-1/2 -translate-x-1/2 w-1/2 h-0.5 bg-mp-sky rounded-full"
                   />
                 )}
               </motion.button>
             ))}
           </nav>
 
-          {/* CTA Button */}
           <div className="hidden lg:block">
             <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
               <Button 
@@ -121,7 +120,6 @@ const Header = () => {
             </motion.div>
           </div>
 
-          {/* Mobile Menu Button */}
           <motion.button 
             whileTap={{ scale: 0.9 }}
             onClick={() => setIsMenuOpen(!isMenuOpen)}
@@ -134,7 +132,6 @@ const Header = () => {
         </div>
       </div>
 
-      {/* Mobile Menu */}
       <AnimatePresence>
         {isMenuOpen && (
           <motion.div
@@ -152,7 +149,7 @@ const Header = () => {
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: index * 0.1 }}
                   onClick={() => scrollToSection(item.id)}
-                  className={`block w-full text-left px-4 py-3 rounded-xl font-medium transition-colors ${
+                  className={`block w-full text-left px-4 py-3 rounded-xl font-medium transition-all ${
                     activeSection === item.id 
                       ? 'bg-mp-sky/10 text-mp-sky' 
                       : 'text-foreground hover:bg-muted'
@@ -161,19 +158,12 @@ const Header = () => {
                   {item.label}
                 </motion.button>
               ))}
-              <motion.div
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 0.5 }}
-                className="pt-4"
+              <Button 
+                onClick={() => scrollToSection('contact')}
+                className="w-full bg-gradient-to-r from-mp-navy to-mp-dark text-white py-4 rounded-xl font-semibold mt-4"
               >
-                <Button 
-                  onClick={() => scrollToSection('contact')}
-                  className="w-full bg-mp-navy hover:bg-mp-sky text-white py-4 rounded-xl font-semibold"
-                >
-                  Get a Quote
-                </Button>
-              </motion.div>
+                Get a Quote
+              </Button>
             </nav>
           </motion.div>
         )}
