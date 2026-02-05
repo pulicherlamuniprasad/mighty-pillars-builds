@@ -63,7 +63,7 @@ const Portfolio = () => {
     : projects.filter(p => p.category === activeFilter);
 
   return (
-    <section id="portfolio" ref={containerRef} className="relative py-20 overflow-hidden bg-gradient-to-b from-background to-muted/30">
+    <section id="portfolio" ref={containerRef} className="relative py-10 overflow-hidden bg-gradient-to-b from-background to-muted/30">
       {/* Floating elements */}
       <motion.div
         style={{ y }}
