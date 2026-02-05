@@ -63,7 +63,7 @@ const Portfolio = () => {
     : projects.filter(p => p.category === activeFilter);
 
   return (
-    <section id="portfolio" ref={containerRef} className="relative py-32 overflow-hidden bg-gradient-to-b from-background to-muted/30">
+    <section id="portfolio" ref={containerRef} className="relative py-20 overflow-hidden bg-gradient-to-b from-background to-muted/30">
       {/* Floating elements */}
       <motion.div
         style={{ y }}
@@ -76,13 +76,13 @@ const Portfolio = () => {
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8 }}
-          className="text-center mb-16"
+          className="text-center mb-10"
         >
           <motion.span 
             initial={{ opacity: 0, scale: 0.9 }}
             animate={isInView ? { opacity: 1, scale: 1 } : {}}
             transition={{ duration: 0.5, delay: 0.1 }}
-            className="inline-block px-4 py-2 bg-mp-sky/10 text-mp-sky rounded-full text-sm font-semibold mb-6"
+            className="inline-block px-4 py-1.5 bg-mp-sky/10 text-mp-sky rounded-full text-sm font-semibold mb-4"
           >
             Portfolio
           </motion.span>
@@ -90,7 +90,7 @@ const Portfolio = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="section-title text-foreground mb-6"
+            className="section-title text-foreground mb-4"
           >
             What We Have Done
           </motion.h2>
@@ -98,7 +98,7 @@ const Portfolio = () => {
             initial={{ width: 0 }}
             animate={isInView ? { width: 96 } : {}}
             transition={{ duration: 0.8, delay: 0.4 }}
-            className="h-1.5 bg-gradient-to-r from-mp-sky to-accent mx-auto rounded-full mb-8"
+            className="h-1.5 bg-gradient-to-r from-mp-sky to-accent mx-auto rounded-full mb-6"
           />
           <motion.p 
             initial={{ opacity: 0 }}
@@ -115,7 +115,7 @@ const Portfolio = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6, delay: 0.3 }}
-          className="flex flex-wrap justify-center gap-3 mb-12"
+          className="flex flex-wrap justify-center gap-2 mb-8"
         >
           {categories.map((category, index) => (
             <motion.button
@@ -142,7 +142,7 @@ const Portfolio = () => {
           initial={{ opacity: 0, y: 50 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8, delay: 0.4 }}
-          className="mb-16"
+          className="mb-10"
         >
           <motion.div 
             className="relative rounded-3xl overflow-hidden group cursor-pointer shadow-2xl"
@@ -151,7 +151,7 @@ const Portfolio = () => {
           >
             <div className="grid lg:grid-cols-2">
               {/* Image */}
-              <div className="relative h-80 lg:h-[500px] overflow-hidden">
+              <div className="relative h-72 lg:h-[420px] overflow-hidden">
                 <AnimatePresence mode="wait">
                   <motion.img
                     key={selectedProject}
@@ -185,7 +185,7 @@ const Portfolio = () => {
               </div>
 
               {/* Content */}
-              <div className="bg-card p-8 lg:p-12 flex flex-col justify-center relative overflow-hidden">
+              <div className="bg-card p-6 lg:p-10 flex flex-col justify-center relative overflow-hidden">
                 <div className="absolute inset-0 opacity-5">
                   <div className="absolute top-0 right-0 w-64 h-64 bg-mp-sky rounded-full blur-3xl" />
                 </div>
@@ -200,10 +200,10 @@ const Portfolio = () => {
                     className="relative z-10"
                   >
                     <span className="text-mp-sky font-semibold mb-4 block">Featured Project</span>
-                    <h3 className="text-3xl lg:text-4xl font-display font-bold text-foreground mb-6">
+                    <h3 className="text-2xl lg:text-3xl font-display font-bold text-foreground mb-4">
                       {projects[selectedProject].title}
                     </h3>
-                    <p className="text-lg text-muted-foreground mb-8 leading-relaxed">
+                    <p className="text-base text-muted-foreground mb-6 leading-relaxed">
                       {projects[selectedProject].description}
                     </p>
                     <motion.button 
@@ -228,7 +228,7 @@ const Portfolio = () => {
         {/* Project Grid */}
         <motion.div
           layout
-          className="grid md:grid-cols-2 lg:grid-cols-3 gap-6"
+          className="grid md:grid-cols-2 lg:grid-cols-3 gap-4"
         >
           <AnimatePresence mode="popLayout">
             {filteredProjects.map((project, index) => (
@@ -247,7 +247,7 @@ const Portfolio = () => {
                     : 'hover:shadow-2xl'
                 }`}
               >
-                <div className="relative h-64 overflow-hidden">
+                <div className="relative h-56 overflow-hidden">
                   <motion.img 
                     src={project.image}
                     alt={project.title}
@@ -287,7 +287,7 @@ const Portfolio = () => {
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6, delay: 0.8 }}
-          className="text-center mt-16"
+          className="text-center mt-10"
         >
           <motion.button 
             whileHover={{ scale: 1.05 }}

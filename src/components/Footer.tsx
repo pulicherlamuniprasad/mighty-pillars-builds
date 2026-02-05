@@ -60,7 +60,7 @@ const Footer = () => {
 
       <div className="container mx-auto px-6 relative z-10">
         {/* Main Footer Content */}
-        <div className="py-16 grid md:grid-cols-2 lg:grid-cols-4 gap-12">
+        <div className="py-12 grid md:grid-cols-2 lg:grid-cols-4 gap-8">
           {/* Company Info */}
           <motion.div 
             initial={{ opacity: 0, y: 30 }}
@@ -70,7 +70,7 @@ const Footer = () => {
           >
             <motion.div 
               whileHover={{ scale: 1.02 }}
-              className="flex items-center gap-3 mb-6 cursor-pointer"
+              className="flex items-center gap-3 mb-4 cursor-pointer"
               onClick={() => scrollToSection('home')}
             >
               <motion.div 
@@ -84,7 +84,7 @@ const Footer = () => {
                 <p className="text-sm text-white/60">Construction & Design</p>
               </div>
             </motion.div>
-            <p className="text-white/70 mb-6 leading-relaxed">
+            <p className="text-white/70 mb-4 text-sm leading-relaxed">
               Building dreams and designing spaces with precision, passion, and unmatched craftsmanship. 
               Your vision, our blueprint.
             </p>

@@ -66,7 +66,7 @@ const Services = () => {
   };
 
   return (
-    <section id="services" ref={containerRef} className="relative py-32 overflow-hidden">
+    <section id="services" ref={containerRef} className="relative py-20 overflow-hidden">
       {/* Background */}
       <div className="absolute inset-0 bg-gradient-to-b from-muted/50 via-background to-muted/30" />
       
@@ -85,13 +85,13 @@ const Services = () => {
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8 }}
-          className="text-center mb-20"
+          className="text-center mb-12"
         >
           <motion.span 
             initial={{ opacity: 0, scale: 0.9 }}
             animate={isInView ? { opacity: 1, scale: 1 } : {}}
             transition={{ duration: 0.5, delay: 0.1 }}
-            className="inline-block px-4 py-2 bg-mp-sky/10 text-mp-sky rounded-full text-sm font-semibold mb-6"
+            className="inline-block px-4 py-1.5 bg-mp-sky/10 text-mp-sky rounded-full text-sm font-semibold mb-4"
           >
             Our Services
           </motion.span>
@@ -99,7 +99,7 @@ const Services = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="section-title text-foreground mb-6"
+            className="section-title text-foreground mb-4"
           >
             What We Do
           </motion.h2>
@@ -107,7 +107,7 @@ const Services = () => {
             initial={{ width: 0 }}
             animate={isInView ? { width: 96 } : {}}
             transition={{ duration: 0.8, delay: 0.4 }}
-            className="h-1.5 bg-gradient-to-r from-mp-sky to-accent mx-auto rounded-full mb-8"
+            className="h-1.5 bg-gradient-to-r from-mp-sky to-accent mx-auto rounded-full mb-6"
           />
           <motion.p 
             initial={{ opacity: 0 }}
@@ -120,7 +120,7 @@ const Services = () => {
         </motion.div>
 
         {/* Services Grid */}
-        <div className="grid md:grid-cols-2 gap-8 mb-20">
+        <div className="grid md:grid-cols-2 gap-6 mb-12">
           {services.map((service, index) => (
             <motion.div
               key={index}
@@ -143,21 +143,21 @@ const Services = () => {
               </div>
 
               {/* Content */}
-              <div className="relative p-8 md:p-10 min-h-[400px] flex flex-col justify-end">
+              <div className="relative p-6 md:p-8 min-h-[340px] flex flex-col justify-end">
                 {/* Icon with animation */}
                 <motion.div 
-                  className="w-16 h-16 bg-gradient-to-br from-mp-sky to-accent rounded-2xl flex items-center justify-center mb-6 shadow-lg"
+                  className="w-14 h-14 bg-gradient-to-br from-mp-sky to-accent rounded-xl flex items-center justify-center mb-4 shadow-lg"
                   whileHover={{ rotate: 10, scale: 1.1 }}
                   transition={{ duration: 0.3 }}
                 >
-                  <service.icon className="w-8 h-8 text-white" />
+                  <service.icon className="w-7 h-7 text-white" />
                 </motion.div>
 
-                <h3 className="text-3xl font-display font-bold text-white mb-6 group-hover:text-mp-sky transition-colors duration-300">
+                <h3 className="text-2xl font-display font-bold text-white mb-4 group-hover:text-mp-sky transition-colors duration-300">
                   {service.category}
                 </h3>
 
-                <ul className="space-y-3 mb-6">
+                <ul className="space-y-2 mb-4">
                   {service.items.map((item, itemIndex) => (
                     <motion.li 
                       key={itemIndex}
@@ -206,12 +206,12 @@ const Services = () => {
           </div>
 
           {/* Content */}
-          <div className="relative px-8 md:px-16 py-16 flex flex-col md:flex-row items-center justify-between gap-8">
+          <div className="relative px-6 md:px-12 py-10 flex flex-col md:flex-row items-center justify-between gap-6">
             <div>
-              <h3 className="text-3xl md:text-4xl font-display font-bold text-white mb-4">
+              <h3 className="text-2xl md:text-3xl font-display font-bold text-white mb-3">
                 Have a Unique Idea?
               </h3>
-              <p className="text-xl text-white/70 max-w-xl">
+              <p className="text-lg text-white/70 max-w-xl">
                 We'll design and build it just the way you want. Let's turn your vision into reality.
               </p>
             </div>
