@@ -68,7 +68,7 @@ const Contact = () => {
   ];
 
   return (
-    <section id="contact" ref={containerRef} className="relative py-32 overflow-hidden">
+    <section id="contact" ref={containerRef} className="relative py-20 overflow-hidden">
       {/* Background */}
       <div className="absolute inset-0 bg-gradient-to-b from-muted/30 to-background" />
       
@@ -93,13 +93,13 @@ const Contact = () => {
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8 }}
-          className="text-center mb-20"
+          className="text-center mb-12"
         >
           <motion.span 
             initial={{ opacity: 0, scale: 0.9 }}
             animate={isInView ? { opacity: 1, scale: 1 } : {}}
             transition={{ duration: 0.5, delay: 0.1 }}
-            className="inline-block px-4 py-2 bg-mp-sky/10 text-mp-sky rounded-full text-sm font-semibold mb-6"
+            className="inline-block px-4 py-1.5 bg-mp-sky/10 text-mp-sky rounded-full text-sm font-semibold mb-4"
           >
             Get In Touch
           </motion.span>
@@ -107,7 +107,7 @@ const Contact = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="section-title text-foreground mb-6"
+            className="section-title text-foreground mb-4"
           >
             Let's Build Something Together
           </motion.h2>
@@ -115,7 +115,7 @@ const Contact = () => {
             initial={{ width: 0 }}
             animate={isInView ? { width: 96 } : {}}
             transition={{ duration: 0.8, delay: 0.4 }}
-            className="h-1.5 bg-gradient-to-r from-mp-sky to-accent mx-auto rounded-full mb-8"
+            className="h-1.5 bg-gradient-to-r from-mp-sky to-accent mx-auto rounded-full mb-6"
           />
           <motion.p 
             initial={{ opacity: 0 }}
@@ -127,9 +127,9 @@ const Contact = () => {
           </motion.p>
         </motion.div>
 
-        <div className="grid lg:grid-cols-5 gap-12">
+        <div className="grid lg:grid-cols-5 gap-8">
           {/* Contact Information */}
-          <div className="lg:col-span-2 space-y-6">
+          <div className="lg:col-span-2 space-y-4">
             {/* Info Cards */}
             {contactInfo.map((info, index) => (
               <motion.div
@@ -138,10 +138,10 @@ const Contact = () => {
                 animate={isInView ? { opacity: 1, x: 0 } : {}}
                 transition={{ duration: 0.6, delay: 0.3 + index * 0.1 }}
                 whileHover={{ x: 10, scale: 1.02 }}
-                className="group flex items-start gap-5 p-6 bg-card rounded-2xl border border-border hover:border-mp-sky/50 transition-all duration-300 cursor-pointer relative overflow-hidden"
+                className="group flex items-start gap-4 p-5 bg-card rounded-xl border border-border hover:border-mp-sky/50 transition-all duration-300 cursor-pointer relative overflow-hidden"
               >
-                <motion.div 
-                  className="w-14 h-14 bg-gradient-to-br from-mp-sky to-accent rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg relative z-10"
+                <motion.div
+                  className="w-12 h-12 bg-gradient-to-br from-mp-sky to-accent rounded-lg flex items-center justify-center flex-shrink-0 shadow-lg relative z-10"
                   whileHover={{ scale: 1.1, rotate: 10 }}
                   transition={{ duration: 0.3 }}
                 >
@@ -163,9 +163,9 @@ const Contact = () => {
               initial={{ opacity: 0, y: 30 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.6, delay: 0.6 }}
-              className="p-6 bg-gradient-to-br from-mp-navy to-mp-dark rounded-2xl relative overflow-hidden"
+              className="p-5 bg-gradient-to-br from-mp-navy to-mp-dark rounded-xl relative overflow-hidden"
             >
-              <h4 className="font-bold text-white mb-4 relative z-10">Follow Us</h4>
+              <h4 className="font-bold text-white mb-3 relative z-10">Follow Us</h4>
               <div className="flex gap-3 relative z-10">
                 {['Facebook', 'Instagram', 'LinkedIn', 'Twitter'].map((social, index) => (
                   <motion.button
@@ -191,8 +191,8 @@ const Contact = () => {
             transition={{ duration: 0.8, delay: 0.4 }}
             className="lg:col-span-3"
           >
-            <motion.div 
-              className="bg-card p-8 md:p-10 rounded-3xl shadow-xl border border-border relative overflow-hidden"
+            <motion.div
+              className="bg-card p-6 md:p-8 rounded-2xl shadow-xl border border-border relative overflow-hidden"
               whileHover={{ boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.1)" }}
             >
               {/* Background decoration */}
@@ -201,12 +201,12 @@ const Contact = () => {
               <h3 className="text-2xl font-display font-bold text-foreground mb-2 relative z-10">
                 Send us a Message
               </h3>
-              <p className="text-muted-foreground mb-8 relative z-10">
+              <p className="text-muted-foreground mb-6 relative z-10">
                 Fill out the form below and we'll get back to you within 24 hours.
               </p>
               
-              <form onSubmit={handleSubmit} className="space-y-6 relative z-10">
-                <div className="grid md:grid-cols-2 gap-6">
+              <form onSubmit={handleSubmit} className="space-y-4 relative z-10">
+                <div className="grid md:grid-cols-2 gap-4">
                   <motion.div 
                     className="space-y-2"
                     animate={focusedField === 'name' ? { scale: 1.02 } : { scale: 1 }}
@@ -340,7 +340,7 @@ const Contact = () => {
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8, delay: 0.6 }}
           whileHover={{ scale: 1.01 }}
-          className="mt-20 rounded-3xl overflow-hidden shadow-2xl h-80 relative group"
+          className="mt-12 rounded-2xl overflow-hidden shadow-2xl h-64 relative group"
         >
           <iframe
             src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d122251.56959958428!2d80.35916684335937!3d16.30675!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a4a754a5b7d0b67%3A0x3e26e1a3e6e0f0c8!2sGuntur%2C%20Andhra%20Pradesh!5e0!3m2!1sen!2sin!4v1635000000000!5m2!1sen!2sin"

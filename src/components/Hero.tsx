@@ -54,8 +54,8 @@ const Hero = () => {
       </div>
 
       <motion.div style={{ y: textY, opacity }} className="container mx-auto px-6 relative z-10 pt-20">
-        <div className="grid lg:grid-cols-2 gap-16 items-center min-h-[calc(100vh-5rem)]">
-          <div className="space-y-8">
+        <div className="grid lg:grid-cols-2 gap-10 items-center min-h-[calc(100vh-5rem)]">
+          <div className="space-y-6">
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
@@ -85,7 +85,7 @@ const Hero = () => {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.4 }}
-              className="text-xl text-white/70 leading-relaxed max-w-xl"
+              className="text-lg text-white/70 leading-relaxed max-w-xl"
             >
               At Mighty Pillars, we turn your vision into reality—brick by brick and board by board.
             </motion.p>
@@ -136,7 +136,7 @@ const Hero = () => {
             initial={{ opacity: 0, x: 50 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, delay: 0.5 }}
-            className="hidden lg:grid grid-cols-2 gap-6"
+            className="hidden lg:grid grid-cols-2 gap-4"
           >
             {stats.map((stat, index) => (
               <motion.div

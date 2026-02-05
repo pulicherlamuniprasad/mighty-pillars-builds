@@ -45,7 +45,7 @@ const About = () => {
   const title = "Who We Are";
 
   return (
-    <section id="about" ref={containerRef} className="relative py-32 overflow-hidden">
+    <section id="about" ref={containerRef} className="relative py-20 overflow-hidden">
       {/* Background Pattern */}
       <div className="absolute inset-0 bg-gradient-to-b from-background via-muted/30 to-background" />
       <div className="absolute inset-0 opacity-[0.02]" 
@@ -66,19 +66,19 @@ const About = () => {
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8 }}
-          className="text-center mb-20"
+          className="text-center mb-12"
         >
           <motion.span 
             initial={{ opacity: 0, scale: 0.9 }}
             animate={isInView ? { opacity: 1, scale: 1 } : {}}
             transition={{ duration: 0.5, delay: 0.1 }}
-            className="inline-block px-4 py-2 bg-mp-sky/10 text-mp-sky rounded-full text-sm font-semibold mb-6"
+            className="inline-block px-4 py-1.5 bg-mp-sky/10 text-mp-sky rounded-full text-sm font-semibold mb-4"
           >
             About Us
           </motion.span>
           
           {/* Animated title */}
-          <h2 className="section-title text-foreground mb-6 overflow-hidden">
+          <h2 className="section-title text-foreground mb-4 overflow-hidden">
             {title.split("").map((char, i) => (
               <motion.span
                 key={i}
@@ -102,15 +102,15 @@ const About = () => {
         </motion.div>
 
         {/* Main Content */}
-        <div className="grid lg:grid-cols-2 gap-16 items-center mb-24">
+        <div className="grid lg:grid-cols-2 gap-10 items-center mb-16">
           {/* Text Content */}
           <motion.div
             initial={{ opacity: 0, x: -50 }}
             animate={isInView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="space-y-8"
+            className="space-y-6"
           >
-            <div className="space-y-6">
+            <div className="space-y-4">
               <p className="text-xl text-muted-foreground leading-relaxed">
                 <span className="text-foreground font-semibold">Mighty Pillars</span> is a construction and interior design company built on trust, creativity, and craftsmanship. 
                 We believe that a great space starts with a great plan—and even better execution.
@@ -121,7 +121,7 @@ const About = () => {
                 whileHover={{ x: 10 }}
                 transition={{ duration: 0.3 }}
               >
-                <h3 className="text-2xl font-display font-bold text-foreground mb-3">Our Mission</h3>
+                <h3 className="text-xl font-display font-bold text-foreground mb-2">Our Mission</h3>
                 <p className="text-lg text-muted-foreground">
                   To create lasting structures and beautiful interiors that reflect your taste, lifestyle, and goals.
                 </p>
@@ -130,7 +130,7 @@ const About = () => {
 
             <motion.div 
               whileHover={{ scale: 1.02 }}
-              className="relative bg-gradient-to-r from-mp-navy to-mp-dark p-8 rounded-2xl overflow-hidden group cursor-pointer"
+              className="relative bg-gradient-to-r from-mp-navy to-mp-dark p-6 rounded-2xl overflow-hidden group cursor-pointer"
             >
               <motion.div 
                 className="absolute inset-0 bg-gradient-to-r from-mp-sky/30 to-transparent"
@@ -139,7 +139,7 @@ const About = () => {
                 transition={{ duration: 0.6 }}
               />
               <div className="absolute -right-10 -bottom-10 w-40 h-40 bg-mp-sky/10 rounded-full blur-2xl" />
-              <p className="text-2xl md:text-3xl font-display font-bold text-white italic relative z-10">
+              <p className="text-xl md:text-2xl font-display font-bold text-white italic relative z-10">
                 "Your vision, our blueprint."
               </p>
             </motion.div>
@@ -152,7 +152,7 @@ const About = () => {
             transition={{ duration: 0.8, delay: 0.4 }}
             className="relative"
           >
-            <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-2 gap-3">
               <motion.div 
                 style={{ y: imageY }}
                 whileHover={{ scale: 1.05 }}
@@ -162,7 +162,7 @@ const About = () => {
                 <motion.img 
                   src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=400&h=500&fit=crop"
                   alt="Construction site"
-                  className="w-full h-64 object-cover"
+                  className="w-full h-52 object-cover"
                   whileHover={{ scale: 1.1 }}
                   transition={{ duration: 0.6 }}
                 />
@@ -175,7 +175,7 @@ const About = () => {
                 <motion.img 
                   src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=400&h=500&fit=crop"
                   alt="Modern interior"
-                  className="w-full h-64 object-cover"
+                  className="w-full h-52 object-cover"
                   whileHover={{ scale: 1.1 }}
                   transition={{ duration: 0.6 }}
                 />
@@ -188,7 +188,7 @@ const About = () => {
                 <motion.img 
                   src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=800&h=300&fit=crop"
                   alt="Team at work"
-                  className="w-full h-48 object-cover"
+                  className="w-full h-40 object-cover"
                   whileHover={{ scale: 1.1 }}
                   transition={{ duration: 0.6 }}
                 />
@@ -201,14 +201,14 @@ const About = () => {
               animate={isInView ? { opacity: 1, scale: 1, y: 0 } : {}}
               transition={{ duration: 0.6, delay: 0.8 }}
               whileHover={{ scale: 1.05, y: -5 }}
-              className="absolute -bottom-6 -left-6 bg-white rounded-2xl shadow-2xl p-6 border border-border"
+              className="absolute -bottom-4 -left-4 bg-white rounded-xl shadow-2xl p-4 border border-border"
             >
               <div className="flex items-center gap-4">
-                <motion.div 
-                  className="w-14 h-14 bg-gradient-to-br from-mp-sky to-accent rounded-xl flex items-center justify-center"
+                <motion.div
+                  className="w-12 h-12 bg-gradient-to-br from-mp-sky to-accent rounded-lg flex items-center justify-center"
                   whileHover={{ rotate: 10 }}
                 >
-                  <Award className="w-7 h-7 text-white" />
+                  <Award className="w-6 h-6 text-white" />
                 </motion.div>
                 <div>
                   <p className="text-sm text-muted-foreground">Award Winning</p>
@@ -220,7 +220,7 @@ const About = () => {
         </div>
 
         {/* Features Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
           {features.map((feature, index) => (
             <motion.div
               key={index}
@@ -228,21 +228,21 @@ const About = () => {
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.6, delay: 0.2 + index * 0.1 }}
               whileHover={{ y: -15, scale: 1.02 }}
-              className="group relative bg-card p-8 rounded-2xl border border-border hover:border-mp-sky/50 transition-all duration-500 overflow-hidden cursor-pointer"
+              className="group relative bg-card p-6 rounded-xl border border-border hover:border-mp-sky/50 transition-all duration-500 overflow-hidden cursor-pointer"
             >
               {/* Animated background gradient */}
               <div className={`absolute inset-0 bg-gradient-to-br ${feature.color} opacity-0 group-hover:opacity-5 transition-opacity duration-500`} />
               
               {/* Icon */}
               <motion.div 
-                className={`w-14 h-14 rounded-xl bg-gradient-to-br ${feature.color} flex items-center justify-center mb-6 shadow-lg`}
+                className={`w-12 h-12 rounded-lg bg-gradient-to-br ${feature.color} flex items-center justify-center mb-4 shadow-lg`}
                 whileHover={{ scale: 1.15, rotate: 10 }}
                 transition={{ duration: 0.3 }}
               >
-                <feature.icon className="w-7 h-7 text-white" />
+                <feature.icon className="w-6 h-6 text-white" />
               </motion.div>
               
-              <h4 className="text-xl font-bold text-foreground mb-3 group-hover:text-mp-sky transition-colors duration-300">
+              <h4 className="text-lg font-bold text-foreground mb-2 group-hover:text-mp-sky transition-colors duration-300">
                 {feature.title}
               </h4>
               <p className="text-muted-foreground">
