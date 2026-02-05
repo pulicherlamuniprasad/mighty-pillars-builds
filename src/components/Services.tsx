@@ -66,7 +66,7 @@ const Services = () => {
   };
 
   return (
-    <section id="services" ref={containerRef} className="relative py-20 overflow-hidden">
+    <section id="services" ref={containerRef} className="relative py-10 overflow-hidden">
       {/* Background */}
       <div className="absolute inset-0 bg-gradient-to-b from-muted/50 via-background to-muted/30" />
       

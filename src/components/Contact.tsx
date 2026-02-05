@@ -68,7 +68,7 @@ const Contact = () => {
   ];
 
   return (
-    <section id="contact" ref={containerRef} className="relative py-20 overflow-hidden">
+    <section id="contact" ref={containerRef} className="relative py-10 overflow-hidden">
       {/* Background */}
       <div className="absolute inset-0 bg-gradient-to-b from-muted/30 to-background" />
       

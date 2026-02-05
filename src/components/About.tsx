@@ -45,7 +45,7 @@ const About = () => {
   const title = "Who We Are";
 
   return (
-    <section id="about" ref={containerRef} className="relative py-20 overflow-hidden">
+    <section id="about" ref={containerRef} className="relative py-10 overflow-hidden">
       {/* Background Pattern */}
       <div className="absolute inset-0 bg-gradient-to-b from-background via-muted/30 to-background" />
       <div className="absolute inset-0 opacity-[0.02]" 
