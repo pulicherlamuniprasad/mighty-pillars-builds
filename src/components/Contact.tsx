@@ -4,7 +4,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { useToast } from '@/hooks/use-toast';
-import { MapPin, Phone, Mail, Send } from 'lucide-react';
+import { MapPin, Phone, Mail, Send, Facebook, Instagram, Linkedin, Twitter } from 'lucide-react';
 
 const Contact = () => {
   const ref = useRef(null);
@@ -53,18 +53,28 @@ const Contact = () => {
     {
       icon: MapPin,
       title: "Visit Us",
-      details: ["123 Construction Ave", "Guntur, AP 522001"]
+      details: ["123 Construction Ave", "Guntur, AP 522001"],
+      href: "https://maps.google.com/?q=Guntur,+Andhra+Pradesh"
     },
     {
       icon: Phone,
       title: "Call Us",
-      details: ["+91 9876543210", "+91 9123456780"]
+      details: ["+91 9876543210", "+91 9123456780"],
+      href: "tel:+919876543210"
     },
     {
       icon: Mail,
       title: "Email Us",
-      details: ["info@mightypillars.com", "projects@mightypillars.com"]
+      details: ["info@mightypillars.com", "projects@mightypillars.com"],
+      href: "mailto:info@mightypillars.com"
     }
+  ];
+
+  const socialLinks = [
+    { name: 'Facebook', icon: Facebook, url: 'https://facebook.com/' },
+    { name: 'Instagram', icon: Instagram, url: 'https://instagram.com/' },
+    { name: 'LinkedIn', icon: Linkedin, url: 'https://linkedin.com/' },
+    { name: 'Twitter', icon: Twitter, url: 'https://twitter.com/' },
   ];
 
   return (
@@ -132,13 +142,16 @@ const Contact = () => {
           <div className="lg:col-span-2 space-y-4">
             {/* Info Cards */}
             {contactInfo.map((info, index) => (
-              <motion.div
+              <motion.a
                 key={index}
+                href={info.href}
+                target={info.icon === MapPin ? "_blank" : undefined}
+                rel={info.icon === MapPin ? "noopener noreferrer" : undefined}
                 initial={{ opacity: 0, x: -30 }}
                 animate={isInView ? { opacity: 1, x: 0 } : {}}
                 transition={{ duration: 0.6, delay: 0.3 + index * 0.1 }}
                 whileHover={{ x: 10, scale: 1.02 }}
-                className="group flex items-start gap-4 p-5 bg-card rounded-xl border border-border hover:border-mp-sky/50 transition-all duration-300 cursor-pointer relative overflow-hidden"
+                className="group flex items-start gap-4 p-5 bg-card rounded-xl border border-border hover:border-mp-sky/50 transition-all duration-300 cursor-pointer relative overflow-hidden block"
               >
                 <motion.div
                   className="w-12 h-12 bg-gradient-to-br from-mp-sky to-accent rounded-lg flex items-center justify-center flex-shrink-0 shadow-lg relative z-10"
@@ -155,7 +168,7 @@ const Contact = () => {
                     <p key={i} className="text-muted-foreground">{detail}</p>
                   ))}
                 </div>
-              </motion.div>
+              </motion.a>
             ))}
 
             {/* Social Links */}
@@ -167,9 +180,13 @@ const Contact = () => {
             >
               <h4 className="font-bold text-white mb-3 relative z-10">Follow Us</h4>
               <div className="flex gap-3 relative z-10">
-                {['Facebook', 'Instagram', 'LinkedIn', 'Twitter'].map((social, index) => (
-                  <motion.button
-                    key={social}
+                {socialLinks.map((social, index) => (
+                  <motion.a
+                    key={social.name}
+                    href={social.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={`Follow us on ${social.name}`}
                     initial={{ opacity: 0, y: 20 }}
                     animate={isInView ? { opacity: 1, y: 0 } : {}}
                     transition={{ delay: 0.7 + index * 0.1 }}
@@ -177,8 +194,8 @@ const Contact = () => {
                     whileTap={{ scale: 0.95 }}
                     className="w-12 h-12 bg-white/10 hover:bg-mp-sky text-white rounded-xl flex items-center justify-center transition-colors duration-300 backdrop-blur-sm"
                   >
-                    {social[0]}
-                  </motion.button>
+                    <social.icon className="w-5 h-5" />
+                  </motion.a>
                 ))}
               </div>
             </motion.div>
@@ -195,7 +212,6 @@ const Contact = () => {
               className="bg-card p-6 md:p-8 rounded-2xl shadow-xl border border-border relative overflow-hidden"
               whileHover={{ boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.1)" }}
             >
-              {/* Background decoration */}
               <div className="absolute top-0 right-0 w-64 h-64 bg-mp-sky/5 rounded-full blur-3xl" />
               
               <h3 className="text-2xl font-display font-bold text-foreground mb-2 relative z-10">
@@ -350,6 +366,7 @@ const Contact = () => {
             allowFullScreen
             loading="lazy"
             referrerPolicy="no-referrer-when-downgrade"
+            title="Mighty Pillars office location on Google Maps"
             className="grayscale group-hover:grayscale-0 transition-all duration-700"
           />
         </motion.div>
