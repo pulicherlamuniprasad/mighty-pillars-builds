@@ -11,8 +11,11 @@ const Header = () => {
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50);
+      // Close mobile menu on scroll
+      if (isMenuOpen) setIsMenuOpen(false);
+      
       const sections = ['home', 'about', 'services', 'portfolio', 'contact'];
-      for (const section of sections.reverse()) {
+      for (const section of [...sections].reverse()) {
         const element = document.getElementById(section);
         if (element && window.scrollY >= element.offsetTop - 200) {
           setActiveSection(section);
@@ -22,7 +25,13 @@ const Header = () => {
     };
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  }, [isMenuOpen]);
+
+  // Lock body scroll when mobile menu is open
+  useEffect(() => {
+    document.body.style.overflow = isMenuOpen ? 'hidden' : '';
+    return () => { document.body.style.overflow = ''; };
+  }, [isMenuOpen]);
 
   const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId);
@@ -126,6 +135,7 @@ const Header = () => {
             className={`lg:hidden w-10 h-10 rounded-xl flex items-center justify-center transition-colors ${
               isScrolled ? 'text-mp-navy hover:bg-muted' : 'text-white hover:bg-white/10'
             }`}
+            aria-label={isMenuOpen ? 'Close menu' : 'Open menu'}
           >
             {isMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
           </motion.button>
@@ -134,38 +144,48 @@ const Header = () => {
 
       <AnimatePresence>
         {isMenuOpen && (
-          <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: 'auto' }}
-            exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.3 }}
-            className="lg:hidden bg-white border-t border-border overflow-hidden"
-          >
-            <nav className="container mx-auto px-6 py-6 space-y-2">
-              {navItems.map((item, index) => (
-                <motion.button
-                  key={item.id}
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: index * 0.1 }}
-                  onClick={() => scrollToSection(item.id)}
-                  className={`block w-full text-left px-4 py-3 rounded-xl font-medium transition-all ${
-                    activeSection === item.id 
-                      ? 'bg-mp-sky/10 text-mp-sky' 
-                      : 'text-foreground hover:bg-muted'
-                  }`}
+          <>
+            {/* Backdrop overlay */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="lg:hidden fixed inset-0 top-20 bg-black/40 backdrop-blur-sm z-40"
+              onClick={() => setIsMenuOpen(false)}
+            />
+            <motion.div
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: 'auto' }}
+              exit={{ opacity: 0, height: 0 }}
+              transition={{ duration: 0.3 }}
+              className="lg:hidden bg-white border-t border-border overflow-hidden relative z-50"
+            >
+              <nav className="container mx-auto px-6 py-6 space-y-2">
+                {navItems.map((item, index) => (
+                  <motion.button
+                    key={item.id}
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: index * 0.1 }}
+                    onClick={() => scrollToSection(item.id)}
+                    className={`block w-full text-left px-4 py-3 rounded-xl font-medium transition-all ${
+                      activeSection === item.id 
+                        ? 'bg-mp-sky/10 text-mp-sky' 
+                        : 'text-foreground hover:bg-muted'
+                    }`}
+                  >
+                    {item.label}
+                  </motion.button>
+                ))}
+                <Button 
+                  onClick={() => scrollToSection('contact')}
+                  className="w-full bg-gradient-to-r from-mp-navy to-mp-dark text-white py-4 rounded-xl font-semibold mt-4"
                 >
-                  {item.label}
-                </motion.button>
-              ))}
-              <Button 
-                onClick={() => scrollToSection('contact')}
-                className="w-full bg-gradient-to-r from-mp-navy to-mp-dark text-white py-4 rounded-xl font-semibold mt-4"
-              >
-                Get a Quote
-              </Button>
-            </nav>
-          </motion.div>
+                  Get a Quote
+                </Button>
+              </nav>
+            </motion.div>
+          </>
         )}
       </AnimatePresence>
     </motion.header>

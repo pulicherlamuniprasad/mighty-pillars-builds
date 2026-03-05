@@ -1,6 +1,6 @@
 import { motion, useInView } from 'framer-motion';
 import { useRef } from 'react';
-import { ArrowUp, MapPin, Phone, Mail } from 'lucide-react';
+import { ArrowUp, MapPin, Phone, Mail, Facebook, Instagram, Linkedin, Twitter } from 'lucide-react';
 
 const Footer = () => {
   const ref = useRef(null);
@@ -31,6 +31,13 @@ const Footer = () => {
     'Interior Design',
     'Project Management',
     'Renovations',
+  ];
+
+  const socialLinks = [
+    { icon: Facebook, url: 'https://facebook.com/', label: 'Facebook' },
+    { icon: Instagram, url: 'https://instagram.com/', label: 'Instagram' },
+    { icon: Linkedin, url: 'https://linkedin.com/', label: 'LinkedIn' },
+    { icon: Twitter, url: 'https://twitter.com/', label: 'Twitter' },
   ];
 
   return (
@@ -89,9 +96,13 @@ const Footer = () => {
               Your vision, our blueprint.
             </p>
             <div className="flex gap-3">
-              {['F', 'I', 'L', 'T'].map((letter, index) => (
-                <motion.button
+              {socialLinks.map((social, index) => (
+                <motion.a
                   key={index}
+                  href={social.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={social.label}
                   initial={{ opacity: 0, y: 20 }}
                   animate={isInView ? { opacity: 1, y: 0 } : {}}
                   transition={{ delay: 0.5 + index * 0.1 }}
@@ -99,8 +110,8 @@ const Footer = () => {
                   whileTap={{ scale: 0.95 }}
                   className="w-10 h-10 bg-white/10 hover:bg-mp-sky rounded-xl flex items-center justify-center transition-colors duration-300"
                 >
-                  {letter}
-                </motion.button>
+                  <social.icon className="w-4 h-4" />
+                </motion.a>
               ))}
             </div>
           </motion.div>
@@ -164,13 +175,14 @@ const Footer = () => {
                   animate={isInView ? { opacity: 1, x: 0 } : {}}
                   transition={{ delay: 0.4 + index * 0.1 }}
                 >
-                  <motion.span
+                  <motion.button
                     whileHover={{ x: 8 }}
+                    onClick={() => scrollToSection('services')}
                     className="text-white/70 hover:text-mp-sky transition-colors duration-300 flex items-center gap-2 cursor-pointer group"
                   >
                     <span className="w-1.5 h-1.5 bg-mp-sky/50 rounded-full group-hover:bg-mp-sky transition-colors" />
                     {service}
-                  </motion.span>
+                  </motion.button>
                 </motion.li>
               ))}
             </ul>
@@ -192,7 +204,10 @@ const Footer = () => {
               />
             </h4>
             <div className="space-y-4">
-              <motion.div 
+              <motion.a 
+                href="https://maps.google.com/?q=Guntur,+Andhra+Pradesh"
+                target="_blank"
+                rel="noopener noreferrer"
                 whileHover={{ x: 8 }}
                 className="flex items-start gap-3 text-white/70 hover:text-white transition-colors cursor-pointer group"
               >
@@ -203,8 +218,9 @@ const Footer = () => {
                   <p>123 Construction Ave</p>
                   <p>Guntur, AP 522001</p>
                 </div>
-              </motion.div>
-              <motion.div 
+              </motion.a>
+              <motion.a 
+                href="tel:+919876543210"
                 whileHover={{ x: 8 }}
                 className="flex items-center gap-3 text-white/70 hover:text-white transition-colors cursor-pointer group"
               >
@@ -212,8 +228,9 @@ const Footer = () => {
                   <Phone className="w-5 h-5 text-mp-sky" />
                 </motion.div>
                 <p>+91 9876543210</p>
-              </motion.div>
-              <motion.div 
+              </motion.a>
+              <motion.a 
+                href="mailto:info@mightypillars.com"
                 whileHover={{ x: 8 }}
                 className="flex items-center gap-3 text-white/70 hover:text-white transition-colors cursor-pointer group"
               >
@@ -221,7 +238,7 @@ const Footer = () => {
                   <Mail className="w-5 h-5 text-mp-sky" />
                 </motion.div>
                 <p>info@mightypillars.com</p>
-              </motion.div>
+              </motion.a>
             </div>
           </motion.div>
         </div>
@@ -234,7 +251,7 @@ const Footer = () => {
           className="py-6 border-t border-white/10 flex flex-col md:flex-row items-center justify-between gap-4"
         >
           <p className="text-white/60 text-sm text-center md:text-left">
-            © 2024 Mighty Pillars. All rights reserved. | Building dreams, designing futures.
+            © {new Date().getFullYear()} Mighty Pillars. All rights reserved. | Building dreams, designing futures.
           </p>
           
           <motion.button
