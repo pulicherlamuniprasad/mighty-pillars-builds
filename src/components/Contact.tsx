@@ -71,7 +71,6 @@ const Contact = () => {
     
     await new Promise(resolve => setTimeout(resolve, 1500));
     
-    console.log('Form submitted:', formData);
     toast({
       title: "Message Sent Successfully! ✨",
       description: "Thank you for contacting us. We'll get back to you within 24 hours.",
@@ -109,7 +108,7 @@ const Contact = () => {
   ];
 
   return (
-    <section id="contact" ref={containerRef} className="relative py-10 overflow-hidden">
+    <section id="contact" ref={containerRef} className="relative py-10 overflow-hidden" style={{ position: 'relative' }}>
       {/* Background */}
       <div className="absolute inset-0 bg-gradient-to-b from-muted/30 to-background" />
       

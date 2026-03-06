@@ -45,7 +45,7 @@ const About = () => {
   const title = "Who We Are";
 
   return (
-    <section id="about" ref={containerRef} className="relative py-10 overflow-hidden">
+    <section id="about" ref={containerRef} className="relative py-10 overflow-hidden" style={{ position: 'relative' }}>
       {/* Background Pattern */}
       <div className="absolute inset-0 bg-gradient-to-b from-background via-muted/30 to-background" />
       <div className="absolute inset-0 opacity-[0.02]" 
@@ -159,9 +159,10 @@ const About = () => {
                 transition={{ duration: 0.4 }}
                 className="rounded-2xl overflow-hidden shadow-xl"
               >
-                <motion.img 
+              <motion.img 
                   src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=400&h=500&fit=crop"
-                  alt="Construction site"
+                  alt="Construction site with workers and machinery"
+                  loading="lazy"
                   className="w-full h-52 object-cover"
                   whileHover={{ scale: 1.1 }}
                   transition={{ duration: 0.6 }}
@@ -172,9 +173,10 @@ const About = () => {
                 transition={{ duration: 0.4 }}
                 className="rounded-2xl overflow-hidden shadow-xl mt-8"
               >
-                <motion.img 
+              <motion.img 
                   src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=400&h=500&fit=crop"
-                  alt="Modern interior"
+                  alt="Modern interior design with elegant furniture"
+                  loading="lazy"
                   className="w-full h-52 object-cover"
                   whileHover={{ scale: 1.1 }}
                   transition={{ duration: 0.6 }}
@@ -185,9 +187,10 @@ const About = () => {
                 transition={{ duration: 0.4 }}
                 className="rounded-2xl overflow-hidden shadow-xl col-span-2"
               >
-                <motion.img 
+              <motion.img 
                   src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=800&h=300&fit=crop"
-                  alt="Team at work"
+                  alt="Construction team collaborating on site"
+                  loading="lazy"
                   className="w-full h-40 object-cover"
                   whileHover={{ scale: 1.1 }}
                   transition={{ duration: 0.6 }}

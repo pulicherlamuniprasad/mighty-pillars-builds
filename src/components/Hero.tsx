@@ -48,7 +48,7 @@ const Hero = () => {
   ];
 
   return (
-    <section id="home" ref={containerRef} className="relative min-h-screen flex items-center overflow-hidden">
+    <section id="home" ref={containerRef} className="relative min-h-screen flex items-center overflow-hidden" style={{ position: 'relative' }}>
       <motion.div style={{ scale }} className="absolute inset-0 z-0">
         <video
           autoPlay muted loop playsInline
@@ -204,7 +204,8 @@ const Hero = () => {
           >
             <button
               onClick={() => setIsVideoPlaying(false)}
-              className="absolute top-4 right-4 z-10 w-10 h-10 bg-white/10 rounded-full flex items-center justify-center text-white"
+              aria-label="Close video"
+              className="absolute top-4 right-4 z-10 w-10 h-10 bg-white/10 hover:bg-white/20 rounded-full flex items-center justify-center text-white transition-colors"
             >
               ✕
             </button>
