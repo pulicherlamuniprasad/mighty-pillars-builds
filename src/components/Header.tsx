@@ -56,7 +56,7 @@ const Header = () => {
       transition={{ duration: 0.6 }}
       className={`fixed w-full top-0 z-50 transition-all duration-500 ${
         isScrolled 
-          ? 'bg-white/90 backdrop-blur-xl shadow-lg border-b border-border' 
+          ? 'bg-background/90 backdrop-blur-xl shadow-lg border-b border-border' 
           : 'bg-transparent'
       }`}
     >
@@ -158,7 +158,7 @@ const Header = () => {
               animate={{ opacity: 1, height: 'auto' }}
               exit={{ opacity: 0, height: 0 }}
               transition={{ duration: 0.3 }}
-              className="lg:hidden bg-white border-t border-border overflow-hidden relative z-50"
+              className="lg:hidden bg-background border-t border-border overflow-hidden relative z-50"
             >
               <nav className="container mx-auto px-6 py-6 space-y-2">
                 {navItems.map((item, index) => (
