@@ -1,5 +1,5 @@
 import { motion, useInView, AnimatePresence, useScroll, useTransform } from 'framer-motion';
-import { useRef, useState } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import { ArrowRight, ZoomIn, X } from 'lucide-react';
 
 const Portfolio = () => {
@@ -16,6 +16,27 @@ const Portfolio = () => {
   });
 
   const y = useTransform(scrollYProgress, [0, 1], [100, -100]);
+
+  // Close lightbox on Escape key and lock scroll
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape' && lightboxImage) {
+        setLightboxImage(null);
+      }
+    };
+    if (lightboxImage) {
+      document.addEventListener('keydown', handleKeyDown);
+      document.body.style.overflow = 'hidden';
+    }
+    return () => {
+      document.removeEventListener('keydown', handleKeyDown);
+      document.body.style.overflow = '';
+    };
+  }, [lightboxImage]);
+
+  const scrollToContact = () => {
+    document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
+  };
 
   const projects = [
     {
@@ -208,6 +229,7 @@ const Portfolio = () => {
                     </p>
                     <motion.button 
                       whileHover={{ x: 10 }}
+                      onClick={scrollToContact}
                       className="flex items-center gap-2 text-mp-sky font-semibold group"
                     >
                       View Project Details 
@@ -292,6 +314,7 @@ const Portfolio = () => {
           <motion.button 
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
+            onClick={scrollToContact}
             className="relative overflow-hidden bg-gradient-to-r from-mp-navy to-mp-dark hover:from-mp-sky hover:to-accent text-white font-semibold px-8 py-4 rounded-xl shadow-lg transition-all duration-300 group"
           >
             <span className="relative z-10 flex items-center gap-2">

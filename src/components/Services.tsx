@@ -173,7 +173,10 @@ const Services = () => {
                 </ul>
 
                 {/* Hover Arrow with animation */}
-                <div className="flex items-center gap-2 text-mp-sky font-semibold opacity-0 group-hover:opacity-100 transition-all duration-300">
+                <div 
+                  onClick={() => scrollToSection('contact')}
+                  className="flex items-center gap-2 text-mp-sky font-semibold opacity-0 group-hover:opacity-100 transition-all duration-300"
+                >
                   Learn More 
                   <motion.span
                     animate={{ x: [0, 5, 0] }}
